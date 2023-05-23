@@ -37,11 +37,24 @@ app.use(express.static('public')) */
 // //enabling express to locate static files using virtual path /
 // app.use('/', express.static(path.join(__dirname, '/public')))
 
+//static files for our frontend build
+if(process.env.NODE_ENV === 'production'){
+    const __dirname = path.resolve();
+    app.use(express.static(path.join(__dirname, 'frontend/dist'))) //making our dist folder static
+
+    //any path which is not / users will be redirected to index.html
+    app.get('*', (req, res)  => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')))
+}else{
+
+app.get('/', (req, res) => 
+    res.send('Server is ready '))
+
+}
 
 //routes
 import userRouter from './routes/userRoute.js'
 
-app.use('/api/v1', userRouter)
+app.use('/api/v1/users', userRouter)
 
 
 app.get('/', (req, res) => {

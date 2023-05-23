@@ -10,8 +10,8 @@ router.post('/register', registerUser)
 
 router.post('/logout', logOutUser)
 
-router.get('/users/profile', protect,  getUserProfile)
+router.get('/profile', protect,  getUserProfile)
 
-router.put('/users/profile/update',protect, updateUserProfile)
+router.put('/profile',protect, updateUserProfile)
 
 export default router
